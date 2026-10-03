@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EduMine | Student Learning Patterns</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="brand">
+            <span class="brand-mark">E</span>
+            <span>EduMine</span>
+        </div>
+
+        <div class="header-status">
+            <span class="status-dot"></span>
+            Learning lab
+        </div>
+
+        <div class="header-content">
+
+            <span class="hero-kicker">YOUR STUDY PATTERN LAB</span>
+
+            <h1>
+                Turn your study habits<br>
+                <span>into smarter moves.</span>
+            </h1>
+
+            <p>
+                Explore the learning behaviors that show up together,
+                then use the patterns to make your next study session count.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= CONTROL PANEL ================= -->
+
+    <section class="control-card">
+
+        <div class="control-heading">
+
+            <div>
+                <span class="eyebrow">01 / SET YOUR LENS</span>
+
+                <h2>Find your study signals</h2>
+
+                <p>
+                    Tune the discovery engine to surface patterns that feel useful,
+                    not just frequent.
+                </p>
+            </div>
+
+            <div class="control-note">
+                <span class="note-icon">✦</span>
+                <span>Start with the defaults</span>
+            </div>
+
+        </div>
+
+
+        <div class="controls">
+
+            <!-- SUPPORT -->
+
+            <div class="control-item">
+
+                <label>
+                    Minimum Support
+                </label>
+
+                <div class="slider-line">
+
+                    <input
+                        type="range"
+                        id="support"
+                        min="1"
+                        max="50"
+                        value="10"
+                    >
+
+                    <span id="supportValue">
+                        10%
+                    </span>
+
+                </div>
+
+                <small>
+                    How frequently a pattern must appear
+                </small>
+
+            </div>
+
+
+            <!-- CONFIDENCE -->
+
+            <div class="control-item">
+
+                <label>
+                    Minimum Confidence
+                </label>
+
+                <div class="slider-line">
+
+                    <input
+                        type="range"
+                        id="confidence"
+                        min="10"
+                        max="100"
+                        value="60"
+                    >
+
+                    <span id="confidenceValue">
+                        60%
+                    </span>
+
+                </div>
+
+                <small>
+                    How reliable an association should be
+                </small>
+
+            </div>
+
+
+            <!-- ITEMSET SIZE -->
+
+            <div class="control-item">
+
+                <label>
+                    Pattern Size
+                </label>
+
+                <select id="maxItemset">
+
+                    <option value="2">
+                        Up to 2 behaviors
+                    </option>
+
+                    <option value="3" selected>
+                        Up to 3 behaviors
+                    </option>
+
+                    <option value="4">
+                        Up to 4 behaviors
+                    </option>
+
+                </select>
+
+                <small>
+                    Maximum number of items in a pattern
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="runButton"
+            class="discover-button"
+        >
+            <span>Discover patterns</span>
+            <span class="button-arrow">↗</span>
+        </button>
+
+    </section>
+
+
+    <!-- ================= LOADING ================= -->
+
+    <div
+        id="loading"
+        class="loading hidden"
+    >
+
+        <div class="spinner"></div>
+
+        <span>
+            Discovering patterns...
+        </span>
+
+    </div>
+
+
+    <!-- ================= RESULTS ================= -->
+
+    <main id="results" class="hidden">
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <section class="summary-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        OVERVIEW
+                    </span>
+
+                    <h2>
+                        What the data is saying
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="metrics">
+
+                <div class="metric">
+
+                    <span>
+                        Students
+                    </span>
+
+                    <strong id="students">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <span>
+                        Learning Records
+                    </span>
+
+                    <strong id="transactions">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <span>
+                        Patterns Found
+                    </span>
+
+                    <strong id="itemsetCount">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <span>
+                        Associations
+                    </span>
+
+                    <strong id="ruleCount">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TOP PATTERN ================= -->
+
+        <section class="highlight-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        FEATURED DISCOVERY
+                    </span>
+
+                    <h2>
+                        A Strong Learning Pattern
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="featuredRule"
+                class="featured-rule"
+            >
+
+                <div class="featured-content">
+
+                    <div class="rule-label">
+                        LEARNING BEHAVIORS
+                    </div>
+
+                    <div
+                        id="featuredAntecedent"
+                        class="antecedent"
+                    >
+                        -
+                    </div>
+
+                    <div class="down-arrow">
+                        ↓
+                    </div>
+
+                    <div class="rule-label">
+                        ASSOCIATED OUTCOME
+                    </div>
+
+                    <div
+                        id="featuredConsequent"
+                        class="consequent"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="featured-stats">
+
+                    <div>
+                        <span>Support</span>
+                        <strong id="featuredSupport">
+                            -
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Confidence</span>
+                        <strong id="featuredConfidence">
+                            -
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Lift</span>
+                        <strong id="featuredLift">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ALL RULES ================= -->
+
+        <section class="rules-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        DISCOVERED ASSOCIATIONS
+                    </span>
+
+                    <h2>
+                        Learning Patterns
+                    </h2>
+
+                    <p>
+                        Select a pattern to understand what
+                        the numbers mean.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Learning Pattern
+                            </th>
+
+                            <th>
+                                Outcome
+                            </th>
+
+                            <th>
+                                Support
+                            </th>
+
+                            <th>
+                                Confidence
+                            </th>
+
+                            <th>
+                                Lift
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="ruleTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EXPLANATION ================= -->
+
+        <section
+            id="explanationSection"
+            class="explanation-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        PATTERN EXPLANATION
+                    </span>
+
+                    <h2>
+                        What does this pattern tell us?
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="explanation"
+                class="explanation"
+            >
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FREQUENT PATTERNS ================= -->
+
+        <section class="patterns-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        FREQUENT PATTERNS
+                    </span>
+
+                    <h2>
+                        Common Learning Combinations
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="table-wrapper small-table"
+            >
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Pattern
+                            </th>
+
+                            <th>
+                                Number of Behaviors
+                            </th>
+
+                            <th>
+                                Support
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="itemsetTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="brand">
+            EduMine
+        </div>
+
+        <p>
+            Student Learning Pattern Discovery
+        </p>
+
+        <small>
+            Patterns represent associations in the dataset
+            and do not imply causation.
+        </small>
+
+    </footer>
+
+</div>
+
+
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+></script>
+
+</body>
+
+</html>

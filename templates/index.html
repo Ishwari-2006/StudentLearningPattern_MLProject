@@ -23,9 +23,22 @@
 
     <header class="header">
 
-        <div class="brand">
-            <span class="brand-mark">E</span>
-            <span>EduMine</span>
+        <div class="topbar">
+            <div class="brand">
+                <span class="brand-mark">E</span>
+                <span>EduMine</span>
+            </div>
+
+            <nav class="topnav" aria-label="Main navigation">
+                <a href="#workspace">Workspace</a>
+                <a href="#results">Insights</a>
+                <a href="#footer">About</a>
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu">
+                <span></span>
+                <span></span>
+            </button>
         </div>
 
         <div class="header-status">
@@ -49,12 +62,34 @@
 
         </div>
 
+        <div class="hero-scene" aria-hidden="true">
+            <div class="scene-sun"></div>
+            <div class="scene-cloud cloud-one"></div>
+            <div class="scene-cloud cloud-two"></div>
+            <div class="scene-star star-one">✦</div>
+            <div class="scene-star star-two">✦</div>
+            <div class="scene-label label-focus">FOCUS MODE <b>ON</b></div>
+            <div class="scene-label label-streak">STREAK <b>07</b></div>
+            <div class="road">
+                <span class="road-line line-one"></span>
+                <span class="road-line line-two"></span>
+                <span class="road-line line-three"></span>
+            </div>
+            <div class="study-car">
+                <span class="car-window"></span>
+                <span class="car-light"></span>
+                <span class="car-wheel wheel-left"></span>
+                <span class="car-wheel wheel-right"></span>
+            </div>
+            <div class="scene-sign">NEXT<br><b>LEVEL</b></div>
+        </div>
+
     </header>
 
 
     <!-- ================= CONTROL PANEL ================= -->
 
-    <section class="control-card">
+    <section id="workspace" class="control-card">
 
         <div class="control-heading">
 
@@ -203,7 +238,7 @@
 
     <!-- ================= RESULTS ================= -->
 
-    <main id="results" class="hidden">
+    <main id="results" class="insights-stage hidden">
 
 
         <!-- ================= SUMMARY ================= -->
@@ -215,12 +250,16 @@
                 <div>
 
                     <span class="eyebrow">
-                        OVERVIEW
+                        02 / INSIGHTS
                     </span>
 
                     <h2>
                         What the data is saying
                     </h2>
+
+                    <p class="insights-intro">
+                        Your strongest signals, associations, and recurring study combinations in one view.
+                    </p>
 
                 </div>
 
@@ -540,7 +579,7 @@
 
     <!-- ================= FOOTER ================= -->
 
-    <footer>
+    <footer id="footer">
 
         <div class="brand">
             EduMine
